@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BibliotecaApp.Application.DTOs;
+using BibliotecaApp.Application.DTOs.PersonasDtos;
 using BibliotecaApp.Application.Interfaces;
 using BibliotecaApp.Domain.Interfaces.Repositories;
 
@@ -80,7 +80,7 @@ namespace BibliotecaApp.Application.Services
             };
 
             material.CantidadActual--;
-            _materialRepository.Update(material);
+            await _materialRepository.UpdateAsync(material);
             await _prestamoRepository.AddAsync(prestamo);
         }
 
@@ -97,10 +97,11 @@ namespace BibliotecaApp.Application.Services
 
             prestamo.Devuelto = true;
             prestamo.FechaDevolucion = DateTime.Now;
-            _prestamoRepository.Update(prestamo);
+            await _prestamoRepository.UpdateAsync(prestamo);
 
             material.CantidadActual++;
-            _materialRepository.Update(material);
+            await _materialRepository.UpdateAsync(material);
+
         }
     }
 }

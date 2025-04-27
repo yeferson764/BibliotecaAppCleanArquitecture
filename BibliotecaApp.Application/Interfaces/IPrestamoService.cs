@@ -1,4 +1,4 @@
-﻿using BibliotecaApp.Application.DTOs;
+﻿using BibliotecaApp.Application.DTOs.PersonasDtos;
 
 namespace BibliotecaApp.Application.Interfaces
 {

@@ -11,7 +11,7 @@ namespace BibliotecaApp.Domain.Interfaces.Repositories
         Task<IEnumerable<TipoMaterial>> GetAllAsync();
         Task<TipoMaterial?> GetByIdAsync(int id);
         Task AddAsync(TipoMaterial tipoMaterial);
-        void Update(TipoMaterial tipoMaterial);
-        void Delete(TipoMaterial tipoMaterial);
+        Task UpdateAsync(TipoMaterial tipoMaterial);
+        Task DeleteAsync(TipoMaterial tipoMaterial);
     }
 }

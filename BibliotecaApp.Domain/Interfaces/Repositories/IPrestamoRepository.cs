@@ -14,6 +14,6 @@ namespace BibliotecaApp.Domain.Interfaces.Repositories
         Task<IEnumerable<Prestamo>> GetPrestamosDevueltosAsync();
         Task<IEnumerable<Prestamo>> GetPrestamosActivosPorPersonaAsync(int personaId);
         Task AddAsync(Prestamo prestamo);
-        void Update(Prestamo prestamo);
+        Task UpdateAsync(Prestamo prestamo);
     }
 }

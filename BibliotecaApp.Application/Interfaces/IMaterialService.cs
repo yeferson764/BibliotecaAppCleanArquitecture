@@ -1,4 +1,4 @@
-﻿using BibliotecaApp.Application.DTOs;
+﻿using BibliotecaApp.Application.DTOs.MaterialDtos;
 
 namespace BibliotecaApp.Application.Interfaces
 {
@@ -6,8 +6,9 @@ namespace BibliotecaApp.Application.Interfaces
     {
         Task<IEnumerable<MaterialDto>> GetAllAsync();
         Task<MaterialDto?> GetByIdAsync(int id);
-        Task AddAsync(MaterialDto dto);
-        Task UpdateAsync(int id, MaterialDto dto);
+        Task AddAsync(MaterialCreateAndUpdateDto dto);
+        Task UpdateAsync(int id, MaterialCreateAndUpdateDto dto);
+
         Task DeleteAsync(int id);
         Task AddStockAsync(int id, int cantidad);
     }

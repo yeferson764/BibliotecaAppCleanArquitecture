@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BibliotecaApp.Application.DTOs;
+using BibliotecaApp.Application.DTOs.TipoMaterialDtos;
 using BibliotecaApp.Application.Interfaces;
 using BibliotecaApp.Domain.Interfaces.Repositories;
 
@@ -28,25 +28,27 @@ namespace BibliotecaApp.Application.Services
             return tipo == null ? null : _mapper.Map<TipoMaterialDto>(tipo);
         }
 
-        public async Task AddAsync(TipoMaterialDto dto)
+        public async Task AddAsync(TipoMaterialCreateAndUpdateDto dto)
         {
-            var entity = _mapper.Map<TipoMaterial>(dto);
-            await _repository.AddAsync(entity);
+            var tipoMaterial = _mapper.Map<TipoMaterial>(dto);
+            await _repository.AddAsync(tipoMaterial);
         }
 
-        public async Task UpdateAsync(int id, TipoMaterialDto dto)
+        public async Task UpdateAsync(int id, TipoMaterialCreateAndUpdateDto dto)
         {
             var tipo = await _repository.GetByIdAsync(id);
             if (tipo == null) throw new Exception("Tipo de material no encontrado.");
-            tipo.Tipo = dto.Tipo;
-            _repository.Update(tipo);
+
+            _mapper.Map(dto, tipo);
+
+            await _repository.UpdateAsync(tipo);
         }
 
         public async Task DeleteAsync(int id)
         {
             var tipo = await _repository.GetByIdAsync(id);
             if (tipo == null) throw new Exception("Tipo de material no encontrado.");
-            _repository.Delete(tipo);
+            await _repository.DeleteAsync(tipo);
         }
     }
 }

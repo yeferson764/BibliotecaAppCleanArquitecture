@@ -1,8 +1,7 @@
-﻿namespace BibliotecaApp.Application.DTOs
+﻿namespace BibliotecaApp.Application.DTOs.RolDtos
 {
-    public class RolDto
+    public class RolCreateDto
     {
-        public int Id { get; set; }
         public string RolName { get; set; }
         public int CapacidadPrestamo { get; set; }
     }

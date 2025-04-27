@@ -25,16 +25,17 @@ namespace BibliotecaApp.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public void Update(Material material)
+        public async Task UpdateAsync(Material material)
         {
             _context.Materiales.Update(material);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(Material material)
+        public async Task DeleteAsync(Material material)
         {
             _context.Materiales.Remove(material);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
+
     }
 }

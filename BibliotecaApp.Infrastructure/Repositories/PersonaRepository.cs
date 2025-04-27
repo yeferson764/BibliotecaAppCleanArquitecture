@@ -28,11 +28,12 @@ namespace BibliotecaApp.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public void Update(Persona persona)
+        public async Task UpdateAsync(Persona persona)
         {
             _context.Personas.Update(persona);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
+
 
         public void Delete(Persona persona)
         {

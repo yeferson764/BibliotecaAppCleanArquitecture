@@ -1,5 +1,6 @@
-﻿using BibliotecaApp.Application.DTOs;
+﻿using BibliotecaApp.Application.DTOs.PersonasDtos;
 using BibliotecaApp.Application.Interfaces;
+using BibliotecaApp.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BibliotecaApp.WebApi.Controllers
@@ -26,18 +27,21 @@ namespace BibliotecaApp.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PersonaDto dto)
+        [HttpPost]
+        public async Task<IActionResult> Create(PersonaCreateDto dto)
         {
             await _service.AddAsync(dto);
             return Ok();
         }
 
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, PersonaDto dto)
+        public async Task<IActionResult> Update(int id, PersonaUpdateDto dto)
         {
             await _service.UpdateAsync(id, dto);
             return Ok();
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

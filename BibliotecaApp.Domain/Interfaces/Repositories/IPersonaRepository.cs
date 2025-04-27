@@ -12,7 +12,7 @@ namespace BibliotecaApp.Domain.Interfaces.Repositories
         Task<Persona?> GetByIdAsync(int id);
         Task<Persona?> GetByCedulaAsync(string cedula);
         Task AddAsync(Persona persona);
-        void Update(Persona persona);
+        Task UpdateAsync(Persona persona);  
         void Delete(Persona persona);
     }
 }

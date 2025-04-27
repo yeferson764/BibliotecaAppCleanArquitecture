@@ -1,4 +1,4 @@
-﻿using BibliotecaApp.Application.DTOs;
+﻿using BibliotecaApp.Application.DTOs.MaterialDtos;
 using BibliotecaApp.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,14 +26,14 @@ namespace BibliotecaApp.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(MaterialDto dto)
+        public async Task<IActionResult> Create(MaterialCreateAndUpdateDto dto)
         {
             await _service.AddAsync(dto);
             return Ok();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, MaterialDto dto)
+        public async Task<IActionResult> Update(int id, MaterialCreateAndUpdateDto dto)
         {
             await _service.UpdateAsync(id, dto);
             return Ok();
@@ -46,7 +46,7 @@ namespace BibliotecaApp.WebApi.Controllers
             return Ok();
         }
 
-        [HttpPatch("{id}/enter-stock")]
+        [HttpPut("{id}/enter-stock")]
         public async Task<IActionResult> AddStock(int id, [FromQuery] int cantidad)
         {
             await _service.AddStockAsync(id, cantidad);

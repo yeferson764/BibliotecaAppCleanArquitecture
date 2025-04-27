@@ -1,5 +1,6 @@
-﻿using BibliotecaApp.Application.DTOs;
+﻿using BibliotecaApp.Application.DTOs.RolDtos;
 using BibliotecaApp.Application.Interfaces;
+using BibliotecaApp.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BibliotecaApp.WebApi.Controllers
@@ -26,7 +27,7 @@ namespace BibliotecaApp.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RolDto dto)
+        public async Task<IActionResult> Create([FromBody] RolCreateDto dto)
         {
             await _service.AddAsync(dto);
             return Ok();

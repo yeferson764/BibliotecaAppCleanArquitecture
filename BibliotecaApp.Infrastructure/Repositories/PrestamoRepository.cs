@@ -39,11 +39,15 @@ namespace BibliotecaApp.Infrastructure.Repositories
                 .Include(p => p.Persona)
                 .ToListAsync();
 
-        public async Task<IEnumerable<Prestamo>> GetPrestamosActivosPorPersonaAsync(int personaId) =>
-            await _context.Prestamos
-                .Where(p => p.PersonaId == personaId && !p.Devuelto)
+        public async Task<IEnumerable<Prestamo>> GetPrestamosActivosPorPersonaAsync(int personaId)
+        {
+            return await _context.Prestamos
+                .Include(p => p.Persona)
                 .Include(p => p.Material)
+                .Where(p => p.PersonaId == personaId && !p.Devuelto)
                 .ToListAsync();
+        }
+
 
         public async Task AddAsync(Prestamo prestamo)
         {
@@ -51,10 +55,10 @@ namespace BibliotecaApp.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public void Update(Prestamo prestamo)
+        public async Task UpdateAsync(Prestamo prestamo)
         {
             _context.Prestamos.Update(prestamo);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace BibliotecaApp.Application.DTOs
+﻿namespace BibliotecaApp.Application.DTOs.TipoMaterialDtos
 {
     public class TipoMaterialDto
     {

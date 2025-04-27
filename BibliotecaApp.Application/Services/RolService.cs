@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BibliotecaApp.Application.DTOs;
+using BibliotecaApp.Application.DTOs.RolDtos;
 using BibliotecaApp.Application.Interfaces;
 using BibliotecaApp.Domain.Interfaces.Repositories;
 
@@ -27,9 +27,13 @@ namespace BibliotecaApp.Application.Services
             return rol == null ? null : _mapper.Map<RolDto>(rol);
         }
 
-        public async Task AddAsync(RolDto dto)
+        public async Task AddAsync(RolCreateDto dto)
         {
-            var rol = _mapper.Map<Rol>(dto);
+            var rol = new Rol
+            {
+                RolName = dto.RolName,
+                CapacidadPrestamo = dto.CapacidadPrestamo
+            };
             await _repository.AddAsync(rol);
         }
 

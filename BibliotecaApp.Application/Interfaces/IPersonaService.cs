@@ -1,4 +1,4 @@
-﻿using BibliotecaApp.Application.DTOs;
+﻿using BibliotecaApp.Application.DTOs.PersonasDtos;
 
 namespace BibliotecaApp.Application.Interfaces
 {
@@ -7,8 +7,8 @@ namespace BibliotecaApp.Application.Interfaces
         Task<IEnumerable<PersonaDto>> GetAllAsync();
         Task<PersonaDto?> GetByIdAsync(int id);
         Task<PersonaDto?> GetByCedulaAsync(string cedula);
-        Task AddAsync(PersonaDto dto);
-        Task UpdateAsync(int id, PersonaDto dto);
+        Task AddAsync(PersonaCreateDto dto);
+        Task UpdateAsync(int id, PersonaUpdateDto dto);
         Task DeleteAsync(int id);
         Task<int> GetDisponibilidadPrestamoAsync(int personaId);
     }

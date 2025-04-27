@@ -1,4 +1,4 @@
-﻿using BibliotecaApp.Application.DTOs;
+﻿using BibliotecaApp.Application.DTOs.RolDtos;
 
 namespace BibliotecaApp.Application.Interfaces
 {
@@ -6,7 +6,7 @@ namespace BibliotecaApp.Application.Interfaces
     {
         Task<IEnumerable<RolDto>> GetAllAsync();
         Task<RolDto?> GetByIdAsync(int id);
-        Task AddAsync(RolDto dto);
+        Task AddAsync(RolCreateDto dto);
         Task UpdateAsync(int id, RolDto dto);
         Task DeleteAsync(int id);
     }

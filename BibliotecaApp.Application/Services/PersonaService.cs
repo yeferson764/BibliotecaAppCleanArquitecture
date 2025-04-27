@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BibliotecaApp.Application.DTOs;
+using BibliotecaApp.Application.DTOs.PersonasDtos;
 using BibliotecaApp.Application.Interfaces;
 using BibliotecaApp.Domain.Interfaces.Repositories;
 
@@ -36,27 +36,32 @@ namespace BibliotecaApp.Application.Services
             return persona == null ? null : _mapper.Map<PersonaDto>(persona);
         }
 
-        public async Task AddAsync(PersonaDto dto)
+        public async Task AddAsync(PersonaCreateDto dto)
         {
             var existe = await _personaRepository.GetByCedulaAsync(dto.Cedula);
             if (existe != null)
                 throw new Exception("Ya existe una persona registrada con esa cédula.");
 
-            var persona = _mapper.Map<Persona>(dto);
+            var persona = new Persona
+            {
+                Nombre = dto.Nombre,
+                Cedula = dto.Cedula,
+                RolId = dto.RolId
+            };
+
             await _personaRepository.AddAsync(persona);
         }
 
-        public async Task UpdateAsync(int id, PersonaDto dto)
+        public async Task UpdateAsync(int id, PersonaUpdateDto dto)
         {
             var persona = await _personaRepository.GetByIdAsync(id);
             if (persona == null) throw new Exception("Persona no encontrada.");
 
-            persona.Nombre = dto.Nombre;
-            persona.Cedula = dto.Cedula;
-            persona.RolId = dto.RolId;
+            _mapper.Map(dto, persona);
 
-            _personaRepository.Update(persona);
+            await _personaRepository.UpdateAsync(persona);
         }
+
 
         public async Task DeleteAsync(int id)
         {

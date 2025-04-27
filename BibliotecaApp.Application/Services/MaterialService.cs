@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BibliotecaApp.Application.DTOs;
+using BibliotecaApp.Application.DTOs.MaterialDtos;
 using BibliotecaApp.Application.Interfaces;
 using BibliotecaApp.Domain.Interfaces.Repositories;
 
@@ -28,28 +28,29 @@ namespace BibliotecaApp.Application.Services
             return material == null ? null : _mapper.Map<MaterialDto>(material);
         }
 
-        public async Task AddAsync(MaterialDto dto)
+        public async Task AddAsync(MaterialCreateAndUpdateDto dto)
         {
             var material = _mapper.Map<Material>(dto);
-            material.FechaRegistro = DateTime.Now;
-            material.CantidadActual = material.CantidadRegistrada;
+            material.CantidadActual = dto.CantidadRegistrada; // 👈 Importante: actual = registrada
             await _repository.AddAsync(material);
         }
 
-        public async Task UpdateAsync(int id, MaterialDto dto)
+        public async Task UpdateAsync(int id, MaterialCreateAndUpdateDto dto)
         {
             var material = await _repository.GetByIdAsync(id);
-            if (material == null) throw new Exception("Material no encontrado");
-            material.Titulo = dto.Titulo;
-            material.TipoId = dto.TipoId;
-            _repository.Update(material);
+            if (material == null) throw new Exception("Material no encontrado.");
+
+            _mapper.Map(dto, material);
+            material.CantidadActual = dto.CantidadRegistrada; // 👈 También aquí mantener coherencia
+
+            await _repository.UpdateAsync(material);
         }
 
         public async Task DeleteAsync(int id)
         {
             var material = await _repository.GetByIdAsync(id);
             if (material == null) throw new Exception("Material no encontrado");
-            _repository.Delete(material);
+            await _repository.DeleteAsync(material);
         }
 
         public async Task AddStockAsync(int id, int cantidad)
@@ -58,7 +59,7 @@ namespace BibliotecaApp.Application.Services
             if (material == null) throw new Exception("Material no encontrado");
             material.CantidadRegistrada += cantidad;
             material.CantidadActual += cantidad;
-            _repository.Update(material);
+            await _repository.UpdateAsync(material);
         }
     }
 }
